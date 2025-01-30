@@ -4,25 +4,31 @@ import "fmt"
 
 //LEGENDA: lucroSemImposto: LSI, lucroComImposto: LCI
 
+func getUserInput(infoText string) float64 {
+	var userInput float64
+	fmt.Print(infoText)
+	fmt.Scan(&userInput)
+	return userInput
+}
+
+func calculosFinancas(receita, despesas, taxaImposto float64) (float64, float64, float64) {
+	lsi := receita - despesas
+	lci := lsi - (lsi * taxaImposto / 100)
+	razao := lci / receita
+	return lsi, lci, razao
+}
+
 
 func main() {
 	var receita, despesas, taxaImposto float64
 	
 	//Entradas do usuário
-	fmt.Print("Digite o valor da receita: ")
-	fmt.Scan(&receita)
+	receita = getUserInput("Digite o valor da receita: ")
+	despesas = getUserInput("Digite o valor das despesas: ")
+	taxaImposto = getUserInput("Digite a taxa de imposto: ")
 
-	fmt.Print("Digite o valor das despesas: ")
-	fmt.Scan(&despesas)
-
-	fmt.Print("Digite a taxa de imposto: ")
-	fmt.Scan(&taxaImposto)
-
-	//Calculos
-	lsi := receita - despesas
-	lci := lsi - (lsi * taxaImposto / 100)
-	razao := lci / receita
-
+	lsi, lci, razao := calculosFinancas(receita, despesas, taxaImposto)
+	
 	// O Sptint é uma função que retorna uma string formatada
 
 	// Criando strings formatadas
@@ -36,10 +42,6 @@ func main() {
 	fmt.Println(lsiStr)
 	fmt.Println(lciStr)
 	fmt.Println(razaoStr)
-
-
-
-
 
 	/*
 	// Exibindo os resultados formatados
